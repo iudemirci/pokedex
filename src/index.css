@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
+
+:root {
+  --color-background: #240e0e;
+  --color-main-container: #2a1b1b;
+  --color-main-text: #fff;
+  --color-pokemon-id: #000000a1;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Pixelify Sans", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+  color: var(--color-main-text);
+  /* font-size: 1.1rem; */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.container {
+  background-color: var(--color-main-container);
+  min-width: calc(15rem * 5);
+  min-height: 42rem;
+  padding: 1.6rem;
+  border-radius: 16px;
+  display: grid;
+  grid-template-rows: auto min-content;
+  align-items: center;
+  justify-items: center;
+}
+
+.main-list {
+  display: grid;
+  grid-template-columns: minmax(14rem, min-content) repeat(4, 14rem);
+  grid-template-rows: auto;
+  gap: 0.8rem;
+  list-style: none;
+}
+
+.main-list__card {
+  max-height: 130px;
+  background-size: 140%;
+  background-repeat: no-repeat;
+  background-blend-mode: color;
+  border-radius: 8px;
+  padding: 0.6rem;
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  text-transform: capitalize;
+  transition: all 0.1s;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px #000000;
+}
+
+.main-list__card:hover {
+  transform: translateY(-2px);
+}
+
+.main-list__card:active {
+  transform: translateY(2px);
+}
+
+.main-list__card img {
+  grid-row: span 2;
+  max-width: 100px;
+}
+
+.list-card__id {
+  font-weight: 700;
+  color: var(--color-pokemon-id);
+  font-size: 1.6rem;
+  align-self: flex-end;
+}
+.pokemon-type {
+  font-size: 0.8rem;
+  padding: 4px;
+  border-radius: 6px;
+  border: #00000043 solid 1px;
+  text-transform: capitalize;
+  margin-right: 4px;
+}
+
+.button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.button:hover {
+  color: white;
+}
+
+.loader {
+  width: 96px;
+  height: 96px;
+  border: 15px solid #e84900;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 2s linear infinite;
+  justify-self: center;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128
+
+FONT SIZE SYSTEM (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 /52 / 62 / 74 / 86 / 98
+*/
