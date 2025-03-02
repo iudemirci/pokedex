@@ -5,17 +5,18 @@ import {Loader} from "./components/Loader";
 import {SelectSort} from "./components/SelectSort";
 import {PokemonDetails} from "./components/PokemonDetails";
 import {PokemonTypeBar} from "./components/PokemonTypeBar";
+import pokemonlogo from "./pokemonlogo.png";
 //ABİLİTY DESC FRENCH
 export default function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState([]);
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedType, setSelectedType] = useState("electric");
   const pokemonPerPage = 16;
   const [pokemonOffset, setPokemonOffset] = useState(16);
   const [selectValue, setSelectValue] = useState("ID-Asc");
-  const typeSortedPokemons = pokemonData.filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType))
+  const typeSortedPokemons = pokemonData.filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType));
   const pokemonsFinal = selectedType ? typeSortedPokemons : pokemonData;
   const sortedPokemonData =
     selectValue === "ID-Asc"
@@ -24,7 +25,6 @@ export default function App() {
 
   useEffect(() => {
     handleStart()
-    console.log("test");
   }, [selectedType]);
 
   useEffect(() => {
@@ -106,11 +106,19 @@ export default function App() {
     setSelectedPokemon(pokemon);
   }
 
-  return (
-    <main className="container">
+  function handleSelectType(type){
+    if(selectedType === type) return setSelectedType("")
+    setSelectedType(type);
 
+  }
+
+  return (<>
+        <header className="flex flex-column items-center" >
+      <img className="pokemon-logo "src={pokemonlogo} alt="Pokemon logo" />
+        </header>
+    <main className="container">
       {isLoading && <Loader />}
-      {!isLoading && !isClicked && ( <><PokemonTypeBar onTypeSelect={setSelectedType}/>
+      {!isLoading && !isClicked && ( <><PokemonTypeBar onTypeSelect={handleSelectType} selectedType={selectedType} />
         <PokemonList
           pokemons={sortedPokemonData.slice(
             pokemonOffset - pokemonPerPage,
@@ -125,8 +133,7 @@ export default function App() {
       )}
       {!isClicked && (
         <div className="nav-bar">
-          <div></div>
-          <div className="flex gap">
+          <div className="flex gap" style={{position:"absolute", left: "50%", transform: "translate(-50%)"}}>
             <Button onButton={handleStart}>&lArr;</Button>
             <Button onButton={handlePrevious}>&larr;</Button>
             <Button onButton={handleNext}>&rarr;</Button>
@@ -136,6 +143,7 @@ export default function App() {
         </div>
       )}
     </main>
+      </>
   );
 }
 

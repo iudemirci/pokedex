@@ -92,6 +92,20 @@ background-color: var(--color-main-container);
   transition: all 0.1s;
   cursor: pointer;
   user-select: none;
+  animation: .1s animation;
+}
+
+@keyframes animation {
+  from {
+    /*opacity: 0;*/
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+  }
+  to {
+   /*opacity: 1;*/
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  }
 }
 
 .main-list__card:hover {
@@ -121,6 +135,8 @@ background-color: var(--color-main-container);
   border: #00000043 solid 1px;
   text-transform: capitalize;
   margin-right: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
 .button {
@@ -132,7 +148,7 @@ background-color: var(--color-main-container);
 }
 
 .button:hover {
-  color: white;
+  color: #fff;
 }
 
 .loader {
@@ -159,10 +175,13 @@ background-color: var(--color-main-container);
 .nav-bar {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  position: relative;
 }
 
 .nav-bar__select {
+  font-size: 1.1rem;
+  font-family: inherit;
   background: var(--color-main-container-border__dark) none;
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
@@ -264,6 +283,14 @@ h4 {
   border-radius: 6px;
   border: 1px solid #fff;
   max-width: 50%;
+}
+
+.pokemon-logo{
+  animation: hu__hu__ infinite 2s ease-in-out;
+  padding-bottom: 1rem;
+}
+@keyframes hu__hu__ {
+  50% { transform: translateY(5px) }
 }
 /*
 SPACING SYSTEM (px)

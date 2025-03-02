@@ -1,10 +1,12 @@
 import {pokemonColors} from "./pokemonColors";
 
-export function PokemonType({type, onClick}) {
+export function PokemonType({type, onClick, selectedType}) {
     return <span
         className="pokemon-type"
         style={{
             backgroundColor: pokemonColors[type],
+            border: selectedType===type ? "1px ridge #fff" : "",
+            color: selectedType===type ? "black" : "",
         }}
         onClick= {onClick ? ()=>{onClick(type)} : undefined}
     >

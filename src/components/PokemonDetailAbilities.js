@@ -35,7 +35,7 @@ export function PokemonDetailAbilities({ pokemon }) {
           <Popover
             isOpen={activeAbility === i}
             positions={"bottom"}
-            content={<AbilityDescription>{ability.ability_info}</AbilityDescription>}
+            content={<div className="ability-desc">{ability.ability_info}</div>}
             key={i}
             padding={4}
             align="start"
@@ -53,8 +53,4 @@ export function PokemonDetailAbilities({ pokemon }) {
       </div>
     </div>
   );
-}
-
-function AbilityDescription({children}) {
-  return <div className="ability-desc">{children}</div>;
 }
