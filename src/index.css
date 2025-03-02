@@ -56,7 +56,7 @@ code {
 
 .container {
   background-blend-mode: luminosity;
-  background: var(--color-main-container) url(logo.png) no-repeat center;
+background-color: var(--color-main-container);
   border: 20px inset var(--color-main-container-border);
   min-width: calc(15rem * 4);
   min-height: 45rem;
@@ -171,14 +171,10 @@ code {
 }
 
 .details-container {
+  background-color: var(--color-main-container-border);
   position: relative;
   padding: 2.4rem;
   border-radius: 8px;
-  background: linear-gradient(
-    60deg,
-    var(--color-main-container-border),
-    #2a4fa7
-  );
   border: 4px inset var(--color-main-container-border__dark);
   display: flex;
   flex-direction: column;
@@ -219,7 +215,7 @@ h4 {
   display: grid;
   grid-template-columns: repeat(3, 8rem);
   justify-items: center;
-  align-self: flex-start;
+  align-self: center;
 }
 
 .pokemon-stats div {
@@ -263,9 +259,11 @@ h4 {
 
 .ability-desc {
   background-color: var(--color-main-container);
-  padding: 0.4rem;
+  padding: 0.4rem .6rem;
   font-size: 0.8rem;
   border-radius: 6px;
+  border: 1px solid #fff;
+  max-width: 50%;
 }
 /*
 SPACING SYSTEM (px)

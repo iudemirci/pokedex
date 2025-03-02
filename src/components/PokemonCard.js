@@ -1,8 +1,9 @@
 import {pokemonColors} from "./pokemonColors";
 import logo from "../logo.png";
 import hidden from "../hidden.png";
+import {PokemonType} from "./PokemonType";
 
-export function PokemonCard({ pokemon, onDetails }) {
+export function PokemonCard({ pokemon, onDetails, onTypeSelect }) {
   const pokemonFirstType = pokemon.types.map((pokemon) => pokemon.type.name)[0];
   const typeColor = pokemonColors[pokemonFirstType] || "#f242";
   const pokemonImg = pokemon.sprites.front_default;
@@ -30,15 +31,7 @@ export function PokemonCard({ pokemon, onDetails }) {
         left: ".6rem",
       }}>
         {pokemon.types.map((type, i) => (
-          <span
-            key={i}
-            className="pokemon-type"
-            style={{
-              backgroundColor: pokemonColors[type.type.name],
-            }}
-          >
-            {type.type.name}
-          </span>
+         <PokemonType key={i} type={type.type.name} />
         ))}
       </div>
       <span
@@ -54,3 +47,4 @@ export function PokemonCard({ pokemon, onDetails }) {
     </li>
   );
 }
+

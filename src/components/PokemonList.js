@@ -1,6 +1,6 @@
 import {PokemonCard} from "./PokemonCard";
 
-export function PokemonList({ pokemons, onDetails }) {
+export function PokemonList({ pokemons, onDetails, onTypeSelect }) {
   return (
     <ul className="main-list">
       {pokemons.map((pokemon) => (
@@ -8,6 +8,7 @@ export function PokemonList({ pokemons, onDetails }) {
           pokemon={pokemon}
           key={pokemon.name}
           onDetails={onDetails}
+          onTypeSelect={onTypeSelect}
         />
       ))}
     </ul>
