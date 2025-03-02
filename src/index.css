@@ -13,7 +13,9 @@
   padding: 0;
   margin: 0;
 }
-
+html{
+  font-size: 90%
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Pixelify Sans", "Segoe UI",
     "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -62,11 +64,11 @@ background-color: var(--color-main-container);
   min-height: 45rem;
   padding: 1.6rem;
   border-radius: 16px;
-  display: grid;
+  display: flex;
   gap: 1.2rem;
-  grid-template-rows: auto min-content;
+flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
 }
 
 .main-list {
@@ -151,26 +153,26 @@ background-color: var(--color-main-container);
   color: #fff;
 }
 
-.loader {
-  width: 96px;
-  height: 96px;
-  border: 15px solid var(--color-main-container-border__dark);
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 2s linear infinite;
-  justify-self: center;
-}
+/*.loader {*/
+/*  width: 96px;*/
+/*  height: 96px;*/
+/*  border: 15px solid var(--color-main-container-border__dark);*/
+/*  border-bottom-color: transparent;*/
+/*  border-radius: 50%;*/
+/*  display: inline-block;*/
+/*  box-sizing: border-box;*/
+/*  animation: rotation 2s linear infinite;*/
+/*  justify-self: center;*/
+/*}*/
 
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+/*@keyframes rotation {*/
+/*  0% {*/
+/*    transform: rotate(0deg);*/
+/*  }*/
+/*  100% {*/
+/*    transform: rotate(360deg);*/
+/*  }*/
+/*}*/
 
 .nav-bar {
   width: 100%;
@@ -285,12 +287,11 @@ h4 {
   max-width: 50%;
 }
 
-.pokemon-logo{
+.loader{
   animation: hu__hu__ infinite 2s ease-in-out;
-  padding-bottom: 1rem;
 }
 @keyframes hu__hu__ {
-  50% { transform: translateY(5px) }
+  50% { transform: translateY(10px) }
 }
 /*
 SPACING SYSTEM (px)

@@ -5,19 +5,19 @@ import {Loader} from "./components/Loader";
 import {SelectSort} from "./components/SelectSort";
 import {PokemonDetails} from "./components/PokemonDetails";
 import {PokemonTypeBar} from "./components/PokemonTypeBar";
-import pokemonlogo from "./pokemonlogo.png";
 //ABİLİTY DESC FRENCH
 export default function App() {
   const [pokemonData, setPokemonData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [selectedPokemon, setSelectedPokemon] = useState([]);
-  const [selectedType, setSelectedType] = useState("electric");
+  const [selectedType, setSelectedType] = useState([]);
+  // console.log(selectedType);
   const pokemonPerPage = 16;
   const [pokemonOffset, setPokemonOffset] = useState(16);
   const [selectValue, setSelectValue] = useState("ID-Asc");
-  const typeSortedPokemons = pokemonData.filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType));
-  const pokemonsFinal = selectedType ? typeSortedPokemons : pokemonData;
+  const typeSortedPokemons = selectedType.length === 1 ? pokemonData.filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType[0])) :pokemonData.filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType[0])).filter(pokemon =>pokemon.types.find(type=> type.type.name === selectedType[1]));
+  const pokemonsFinal = selectedType.length>0 ? typeSortedPokemons : pokemonData;
   const sortedPokemonData =
     selectValue === "ID-Asc"
       ? pokemonsFinal
@@ -107,16 +107,13 @@ export default function App() {
   }
 
   function handleSelectType(type){
-    if(selectedType === type) return setSelectedType("")
-    setSelectedType(type);
+    if(selectedType.includes(type)) return setSelectedType([])
+    if(selectedType.length === 2) return setSelectedType([selectedType[1], type])
 
+    setSelectedType([...selectedType, type]);
   }
 
-  return (<>
-        <header className="flex flex-column items-center" >
-      <img className="pokemon-logo "src={pokemonlogo} alt="Pokemon logo" />
-        </header>
-    <main className="container">
+  return <main className="container">
       {isLoading && <Loader />}
       {!isLoading && !isClicked && ( <><PokemonTypeBar onTypeSelect={handleSelectType} selectedType={selectedType} />
         <PokemonList
@@ -143,7 +140,5 @@ export default function App() {
         </div>
       )}
     </main>
-      </>
-  );
 }
 

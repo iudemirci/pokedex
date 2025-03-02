@@ -1,3 +1,5 @@
+import pokemonlogo from "../pokemonlogo.png"
+
 export function Loader() {
-  return <span className="loader"></span>;
+  return <img src={pokemonlogo} alt="pokemon logo" className="loader"></img>;
 }

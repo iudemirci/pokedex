@@ -1,6 +1,7 @@
 import {pokemonColors} from "./pokemonColors";
 
 export function PokemonType({type, onClick, selectedType}) {
+    console.log(selectedType);
     return <span
         className="pokemon-type"
         style={{
