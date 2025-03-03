@@ -1,16 +1,31 @@
-import {pokemonColors} from "./pokemonColors";
+import { pokemonColors } from "./pokemonColors";
 
-export function PokemonType({type, onClick, selectedType}) {
-    console.log(selectedType);
-    return <span
-        className="pokemon-type"
-        style={{
-            backgroundColor: pokemonColors[type],
-            border: selectedType===type ? "1px ridge #fff" : "",
-            color: selectedType===type ? "black" : "",
-        }}
-        onClick= {onClick ? ()=>{onClick(type)} : undefined}
+export function PokemonType({
+  type,
+  onClick,
+  selectedTypes = [],
+  selectedGen,
+}) {
+  const isTypeSelected = selectedTypes.includes(type);
+  const isGenSelected = selectedGen === type;
+
+  return (
+    <span
+      className="pokemon-type"
+      style={{
+        backgroundColor: pokemonColors[type] || pokemonColors["normal"],
+        border: isTypeSelected || isGenSelected ? "1px ridge #fff" : "",
+        color: isTypeSelected || isGenSelected ? "black" : "",
+      }}
+      onClick={
+        onClick
+          ? () => {
+              onClick(type);
+            }
+          : undefined
+      }
     >
-    {type}
-  </span>
+      {type}
+    </span>
+  );
 }
