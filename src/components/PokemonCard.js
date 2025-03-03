@@ -2,8 +2,10 @@ import { pokemonColors } from "./pokemonColors";
 import logo from "../logo.png";
 import hidden from "../hidden.png";
 import { PokemonType } from "./PokemonType";
+import { useState } from "react";
 
 export function PokemonCard({ pokemon, onDetails }) {
+  const [isHovered, setIsHovered] = useState(false);
   const pokemonFirstType = pokemon.types.map((pokemon) => pokemon.type.name)[0];
   const typeColor = pokemonColors[pokemonFirstType] || "#f242";
   const pokemonImg = pokemon.sprites.front_default;
@@ -11,7 +13,7 @@ export function PokemonCard({ pokemon, onDetails }) {
   const cardStyle = {
     backgroundImage: `linear-gradient(60deg ,rgba(0, 0, 0, 0.74) 0%,transparent 80%), linear-gradient(60deg, ${typeColor} 100%, black 0%), url(${logo})
     `,
-    border: `3px solid ${typeColor}`,
+    border: isHovered ? "3px solid #CBCBCBFF" : `3px solid ${typeColor}`,
   };
 
   return (
@@ -19,6 +21,8 @@ export function PokemonCard({ pokemon, onDetails }) {
       className="main-list__card"
       style={cardStyle}
       onClick={() => onDetails(pokemon)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <img src={pokemonImg || hidden} alt={`Pokemon ${pokemon.name}`}></img>
       <div className="flex flex-column" style={{ marginTop: ".6rem" }}>

@@ -1,11 +1,11 @@
-import {PokemonDetailAbilities} from "./PokemonDetailAbilities";
-import {PokemonDetailBaseInfo} from "./PokemonDetailBaseInfo";
-import {PokemonDetailStats} from "./PokemonDetailStats";
+import { PokemonDetailAbilities } from "./PokemonDetailAbilities";
+import { PokemonDetailBaseInfo } from "./PokemonDetailBaseInfo";
+import { PokemonDetailStats } from "./PokemonDetailStats";
 
-export function PokemonDetails({ pokemon, onClick }) {
+export function PokemonDetails({ pokemon, onClick, onTypeSelect }) {
   return (
     <div className="details-container">
-      <PokemonDetailBaseInfo pokemon={pokemon} />
+      <PokemonDetailBaseInfo pokemon={pokemon} onTypeSelect={onTypeSelect} />
       <PokemonDetailStats pokemon={pokemon} />
       <PokemonDetailAbilities pokemon={pokemon} />
       <button className="close-button" onClick={() => onClick(false)}>

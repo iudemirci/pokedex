@@ -12,6 +12,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: inherit;
 }
 html {
   font-size: 90%;
@@ -29,6 +30,7 @@ body {
   justify-content: center;
   color: var(--color-main-text);
   background: var(--color-main-container__darker) url(logo.png) no-repeat center;
+  background-blend-mode: luminosity;
 }
 
 code {
@@ -146,11 +148,12 @@ code {
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s;
-  border: 4px groove var(--color-main-container-border__dark);
+  border: 4px solid var(--color-main-container-border);
+  color: #fff;
 }
 
 .button:hover {
-  color: #fff;
+  color: #000;
 }
 
 .nav-bar {
@@ -161,13 +164,12 @@ code {
 }
 
 .nav-bar__select {
-  font-size: 1.1rem;
-  font-family: inherit;
   background: var(--color-main-container-border__dark) none;
   border-radius: 8px;
   padding: 0.5rem 1.5rem;
   cursor: pointer;
-  border: 4px groove var(--color-main-container-border__dark);
+  border: 4px solid var(--color-main-container-border);
+  color: #fff;
 }
 
 .details-container {
@@ -267,6 +269,8 @@ h4 {
 }
 
 .loader {
+  user-select: none;
+  pointer-events: none;
   animation: hu__hu__ infinite 2s ease-in-out;
 }
 @keyframes hu__hu__ {
@@ -274,6 +278,40 @@ h4 {
     transform: translateY(10px);
   }
 }
+
+.search {
+  background-color: var(--color-main-container-border__dark);
+  border-radius: 8px;
+  border: 2px outset var(--color-main-container-border__dark);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  width: 12rem;
+  border: 4px solid var(--color-main-container-border);
+}
+
+.search::placeholder {
+  color: #fff;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.search-clear {
+  position: absolute;
+  font-weight: 700;
+  top: 50%;
+  transform: translate(-130%, -55%);
+  background: none;
+  border: none;
+  background-color: var(--color-main-container);
+  color: var(--color-main-container-border);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 /*
 SPACING SYSTEM (px)
 2 / 4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128

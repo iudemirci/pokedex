@@ -6,6 +6,7 @@ import { SelectSort } from "./components/SelectSort";
 import { PokemonDetails } from "./components/PokemonDetails";
 import { PokemonTypeBar } from "./components/PokemonTypeBar";
 import { PokemonGenBar } from "./components/PokemonGenBar";
+import { SearchBox } from "./components/SearchBox";
 
 export default function App() {
   const [pokemonData, setPokemonData] = useState([]);
@@ -17,30 +18,52 @@ export default function App() {
   const pokemonPerPage = 16;
   const [pokemonOffset, setPokemonOffset] = useState(16);
   const [selectValue, setSelectValue] = useState("ID-Asc");
+  const [query, setQuery] = useState("");
+  const [searchedPokemons, setSearchedPokemons] = useState([]);
 
   const pokemonSort = function (data) {
-    if (selectedType.length === 0 && pokemonGenSorted.length === 0)
-      return pokemonData;
-    if (selectedType.length === 0) return pokemonGenSorted;
-    if (selectedType.length === 1)
-      return data.filter((pokemon) =>
-        pokemon.types.find((type) => type.type.name === selectedType[0]),
-      );
-    return data
-      .filter((pokemon) =>
-        pokemon.types.find((type) => type.type.name === selectedType[0]),
-      )
-      .filter((pokemon) =>
-        pokemon.types.find((type) => type.type.name === selectedType[1]),
-      );
+    function getGenSorted(d) {
+      return d.filter((pokemon) => pokemon.generation === selectedGen);
+    }
+
+    function getTypeSorted(d) {
+      if (selectedType.length === 1) {
+        return d.filter((pokemon) =>
+          pokemon.types.find((type) => type.type.name === selectedType[0]),
+        );
+      } else
+        return d
+          .filter((pokemon) =>
+            pokemon.types.find((type) => type.type.name === selectedType[0]),
+          )
+          .filter((pokemon) =>
+            pokemon.types.find((type) => type.type.name === selectedType[1]),
+          );
+    }
+
+    if (data.length === 0) {
+      return [];
+    } else if (selectedGen !== "" && selectedType.length !== 0) {
+      const sortedGen = getGenSorted(data);
+      return getTypeSorted(sortedGen);
+    } else if (selectedType.length !== 0) {
+      return getTypeSorted(data);
+    } else if (selectedGen !== "") {
+      return getGenSorted(data);
+    } else return data;
   };
-  const pokemonGenSorted = pokemonData.filter(
-    (pokemon) => pokemon.generation === selectedGen,
-  );
-  const pokemonsFinal =
-    pokemonGenSorted.length > 0
-      ? pokemonSort(pokemonGenSorted)
-      : pokemonSort(pokemonData);
+
+  const [pokemonsFinal, setPokemonsFinal] = useState([]);
+
+  useEffect(() => {
+    if (searchedPokemons.length === 0 && query !== "") {
+      setPokemonsFinal(pokemonSort([]));
+    } else if (searchedPokemons.length > 0) {
+      setPokemonsFinal(pokemonSort(searchedPokemons));
+    } else {
+      setPokemonsFinal(pokemonSort(pokemonData));
+    }
+  }, [isLoading, selectedGen, selectedType, searchedPokemons]);
 
   const sortedPokemonData =
     selectValue === "ID-Asc"
@@ -48,7 +71,7 @@ export default function App() {
       : pokemonsFinal.slice().sort((a, b) => b.id - a.id);
   useEffect(() => {
     handleStart();
-  }, [selectedType]);
+  }, [selectedType, query]);
 
   useEffect(() => {
     async function getData() {
@@ -107,29 +130,14 @@ export default function App() {
     setPokemonOffset(16);
   }
 
-  //Key events
-  useEffect(() => {
-    function callback(e) {
-      if (e.code === "ArrowRight") {
-        handleNext();
-      }
-      if (e.code === "ArrowLeft") {
-        handlePrevious();
-      }
-    }
-    document.addEventListener("keydown", callback);
-    return function () {
-      document.removeEventListener("keydown", callback);
-    };
-  }, []);
-
   function handleCardClick(pokemon, pokemonColor) {
-    console.log(pokemon);
     setIsClicked(true);
     setSelectedPokemon(pokemon);
   }
 
   function handleSelectType(type) {
+    setIsClicked(false);
+
     if (selectedType.includes(type))
       return setSelectedType(selectedType.filter((t) => t !== type));
     if (selectedType.length === 2)
@@ -141,6 +149,15 @@ export default function App() {
   function handleSelectGen(gen) {
     if (selectedGen === gen) return setSelectedGen("");
     setSelectedGen(gen);
+  }
+
+  function handleSearchQuery(input) {
+    setQuery(input);
+    setTimeout(() => {
+      setSearchedPokemons(
+        pokemonData.filter((pokemon) => pokemon.name.includes(input)),
+      );
+    }, "700");
   }
 
   return (
@@ -169,11 +186,15 @@ export default function App() {
         </>
       )}
       {isClicked && (
-        <PokemonDetails pokemon={selectedPokemon} onClick={setIsClicked} />
+        <PokemonDetails
+          pokemon={selectedPokemon}
+          onClick={setIsClicked}
+          onTypeSelect={handleSelectType}
+        />
       )}
       {!isClicked && !isLoading && (
         <div className="nav-bar">
-          <input></input>
+          <SearchBox query={query} setQuery={handleSearchQuery} />
           <div
             className="flex gap"
             style={{

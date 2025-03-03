@@ -1,7 +1,7 @@
 import hidden from "../hidden.png";
-import {PokemonType} from "./PokemonType";
+import { PokemonType } from "./PokemonType";
 
-export function PokemonDetailBaseInfo({ pokemon }) {
+export function PokemonDetailBaseInfo({ pokemon, onTypeSelect }) {
   const pokemonImages = Object.values(pokemon.sprites);
   const pokemonGif = pokemon.sprites.other.showdown.front_default;
 
@@ -19,7 +19,7 @@ export function PokemonDetailBaseInfo({ pokemon }) {
 
         <div>
           {pokemon.types.map((type, i) => (
-            <PokemonType key={i} type={type.type.name} />
+            <PokemonType key={i} type={type.type.name} onClick={onTypeSelect} />
           ))}
         </div>
 
@@ -38,11 +38,16 @@ export function PokemonDetailBaseInfo({ pokemon }) {
           </div>
         </div>
       </div>
-        <span style={{textTransform: "uppercase",
-          alignSelf:"flex-end", position:"absolute",
-        right:"2.4rem"}}>
-            Gen {pokemon.generation.split("-").at(1)}
-        </span>
+      <span
+        style={{
+          textTransform: "uppercase",
+          alignSelf: "flex-end",
+          position: "absolute",
+          right: "2.4rem",
+        }}
+      >
+        Gen {pokemon.generation.split("-").at(1)}
+      </span>
     </div>
   );
 }
