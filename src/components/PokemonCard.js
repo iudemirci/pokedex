@@ -3,6 +3,7 @@ import logo from "../logo.png";
 import hidden from "../hidden.png";
 import { PokemonType } from "./PokemonType";
 import { useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 export function PokemonCard({ pokemon, onDetails }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -24,7 +25,13 @@ export function PokemonCard({ pokemon, onDetails }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={pokemonImg || hidden} alt={`Pokemon ${pokemon.name}`}></img>
+      <LazyLoadImage
+        src={pokemonImg || hidden}
+        alt={`Pokemon ${pokemon.name}`}
+        width={80}
+        height={80}
+        placeholderSrc={hidden}
+      />
       <div className="flex flex-column" style={{ marginTop: ".6rem" }}>
         <span className="list-card__id">#{pokemon.id}</span>
         <span>{pokemon.name}</span>

@@ -19,85 +19,119 @@ export default function App() {
   const [pokemonOffset, setPokemonOffset] = useState(16);
   const [selectValue, setSelectValue] = useState("ID-Asc");
   const [query, setQuery] = useState("");
-  const [searchedPokemons, setSearchedPokemons] = useState([]);
 
-  const pokemonSort = function (data) {
-    function getGenSorted(d) {
-      return d.filter((pokemon) => pokemon.generation === selectedGen);
-    }
+  let pokemonsFinal = pokemonData;
 
-    function getTypeSorted(d) {
-      if (selectedType.length === 1) {
-        return d.filter((pokemon) =>
-          pokemon.types.find((type) => type.type.name === selectedType[0]),
+  if (selectedGen !== "")
+    pokemonsFinal = pokemonsFinal.filter(
+      (pokemon) => pokemon.generation === selectedGen
+    );
+
+  if (selectedType.length !== 0) {
+    if (selectedType.length === 1) {
+      pokemonsFinal = pokemonsFinal.filter((pokemon) =>
+        pokemon.types.find((type) => type.type.name === selectedType[0])
+      );
+    } else
+      pokemonsFinal = pokemonsFinal
+        .filter((pokemon) =>
+          pokemon.types.find((type) => type.type.name === selectedType[0])
+        )
+        .filter((pokemon) =>
+          pokemon.types.find((type) => type.type.name === selectedType[1])
         );
-      } else
-        return d
-          .filter((pokemon) =>
-            pokemon.types.find((type) => type.type.name === selectedType[0]),
-          )
-          .filter((pokemon) =>
-            pokemon.types.find((type) => type.type.name === selectedType[1]),
-          );
-    }
+  }
 
-    if (data.length === 0) {
-      return [];
-    } else if (selectedGen !== "" && selectedType.length !== 0) {
-      const sortedGen = getGenSorted(data);
-      return getTypeSorted(sortedGen);
-    } else if (selectedType.length !== 0) {
-      return getTypeSorted(data);
-    } else if (selectedGen !== "") {
-      return getGenSorted(data);
-    } else return data;
-  };
+  if (query.length !== 0) {
+    pokemonsFinal = pokemonsFinal.filter((pokemon) =>
+      pokemon.name.includes(query)
+    );
+  }
 
-  const [pokemonsFinal, setPokemonsFinal] = useState([]);
+  if (selectValue !== "ID-Asc")
+    pokemonsFinal = pokemonsFinal.slice().sort((a, b) => b.id - a.id);
 
-  useEffect(() => {
-    if (searchedPokemons.length === 0 && query !== "") {
-      setPokemonsFinal(pokemonSort([]));
-    } else if (searchedPokemons.length > 0) {
-      setPokemonsFinal(pokemonSort(searchedPokemons));
-    } else {
-      setPokemonsFinal(pokemonSort(pokemonData));
-    }
-  }, [isLoading, selectedGen, selectedType, searchedPokemons]);
+  // const pokemonSort = function (data) {
+  //   function getGenSorted(d) {
+  //     return d.filter((pokemon) => pokemon.generation === selectedGen);
+  //   }
 
-  const sortedPokemonData =
-    selectValue === "ID-Asc"
-      ? pokemonsFinal
-      : pokemonsFinal.slice().sort((a, b) => b.id - a.id);
-  useEffect(() => {
-    handleStart();
-  }, [selectedType, query]);
+  //     function getTypeSorted(d) {
+  //       if (selectedType.length === 1) {
+  //         return d.filter((pokemon) =>
+  //           pokemon.types.find((type) => type.type.name === selectedType[0])
+  //         );
+  //       } else
+  //         return d
+  //           .filter((pokemon) =>
+  //             pokemon.types.find((type) => type.type.name === selectedType[0])
+  //           )
+  //           .filter((pokemon) =>
+  //             pokemon.types.find((type) => type.type.name === selectedType[1])
+  //           );
+  //     }
+
+  //     if (data.length === 0) {
+  //       return [];
+  //     } else if (selectedGen !== "" && selectedType.length !== 0) {
+  //       const sortedGen = getGenSorted(data);
+  //       return getTypeSorted(sortedGen);
+  //     } else if (selectedType.length !== 0) {
+  //       return getTypeSorted(data);
+  //     } else if (selectedGen !== "") {
+  //       return getGenSorted(data);
+  //     } else return data;
+  //   };
+  // }
+  // const [pokemonsFinal, setPokemonsFinal] = useState([]);
+
+  // useEffect(() => {
+  //   if (searchedPokemons.length === 0 && query !== "") {
+  //     setPokemonsFinal(pokemonSort([]));
+  //   } else if (searchedPokemons.length > 0) {
+  //     setPokemonsFinal(pokemonSort(searchedPokemons));
+  //   } else {
+  //     setPokemonsFinal(pokemonSort(pokemonData));
+  //   }
+  // }, [isLoading, selectedGen, selectedType, searchedPokemons]);
+
+  // const sortedPokemonData =
+  //   selectValue === "ID-Asc"
+  //     ? pokemonsFinal
+  //     : pokemonsFinal.slice().sort((a, b) => b.id - a.id);
+  // useEffect(() => {
+  //   handleStart();
+  // }, [selectedType, query, selectedGen]);
+  // useEffect(() => {
+  //   fetchPokemonData();
+  // }, []);
 
   useEffect(() => {
     async function getData() {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`,
+          `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`
         ).then((res) => res.json());
         const _pokemonData = await Promise.all(
           response.results.map(async (pokemon) => {
             return await fetch(pokemon.url).then((res) => res.json());
-          }),
+          })
         );
 
         const genData = await Promise.all(
           _pokemonData.map(async (data) => {
             const speciesData = await fetch(data.species.url).then((res) =>
-              res.json(),
+              res.json()
             );
             const generationName = speciesData.generation.name;
             return {
               ...data,
               generation: generationName,
             };
-          }),
+          })
         );
+
         setPokemonData(genData);
       } catch (error) {
         console.log(error);
@@ -108,7 +142,7 @@ export default function App() {
     getData();
   }, []);
 
-  //butons
+  //buttons
   function handleNext() {
     if (pokemonOffset >= pokemonsFinal.length) return;
     setPokemonOffset((o) => o + pokemonPerPage);
@@ -130,13 +164,15 @@ export default function App() {
     setPokemonOffset(16);
   }
 
-  function handleCardClick(pokemon, pokemonColor) {
+  function handleCardClick(pokemon) {
+    console.log(pokemon);
     setIsClicked(true);
     setSelectedPokemon(pokemon);
   }
 
   function handleSelectType(type) {
     setIsClicked(false);
+    handleStart();
 
     if (selectedType.includes(type))
       return setSelectedType(selectedType.filter((t) => t !== type));
@@ -147,17 +183,14 @@ export default function App() {
   }
 
   function handleSelectGen(gen) {
+    handleStart();
     if (selectedGen === gen) return setSelectedGen("");
     setSelectedGen(gen);
   }
 
   function handleSearchQuery(input) {
+    handleStart();
     setQuery(input);
-    setTimeout(() => {
-      setSearchedPokemons(
-        pokemonData.filter((pokemon) => pokemon.name.includes(input)),
-      );
-    }, "700");
   }
 
   return (
@@ -177,9 +210,9 @@ export default function App() {
             />
           </div>
           <PokemonList
-            pokemons={sortedPokemonData.slice(
+            pokemons={pokemonsFinal.slice(
               pokemonOffset - pokemonPerPage,
-              pokemonOffset,
+              pokemonOffset
             )}
             onDetails={handleCardClick}
           />

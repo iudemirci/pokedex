@@ -16,6 +16,9 @@ export function PokemonType({
         backgroundColor: pokemonColors[type] || pokemonColors["normal"],
         border: isTypeSelected || isGenSelected ? "1px ridge #fff" : "",
         color: isTypeSelected || isGenSelected ? "black" : "",
+        flex: "1",
+        whiteSpace: "nowrap",
+        textAlign: "center",
       }}
       onClick={
         onClick

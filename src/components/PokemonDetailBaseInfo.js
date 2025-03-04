@@ -1,3 +1,5 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import hidden from "../hidden.png";
 import { PokemonType } from "./PokemonType";
 
@@ -7,10 +9,14 @@ export function PokemonDetailBaseInfo({ pokemon, onTypeSelect }) {
 
   return (
     <div className="flex items-center" style={{ gap: "1.6rem" }}>
-      <img
+      <LazyLoadImage
         src={pokemonGif || pokemonImages[4] || hidden}
         alt={pokemon.name}
-      ></img>
+        effect="blur"
+        width="80px"
+        placeholderSrc={hidden}
+      />
+
       <div className="flex flex-column gap">
         <div className="flex gap items-center">
           <span className="details-id">#{pokemon.id}</span>
