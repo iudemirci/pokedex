@@ -22,7 +22,12 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   let pokemonsFinal = pokemonData;
+  const [pokemonsLength, setPokemonsLength] = useState(pokemonsFinal.length);
 
+  useEffect(() => {
+    setPokemonsLength(pokemonsFinal.length);
+  }, [selectedType, selectedGen, query, pokemonsFinal.length]);
+  console.log(pokemonsLength);
   if (selectedGen !== "")
     pokemonsFinal = pokemonsFinal.filter(
       (pokemon) => pokemon.generation === selectedGen
@@ -190,7 +195,10 @@ export default function App() {
             <Button onButton={handleNext}>&rarr;</Button>
             <Button onButton={handleEnd}>&rArr;</Button>
           </div>
-          <SelectSort onSelect={setSelectValue} />
+          <div className="flex items-center" style={{ gap: "2rem" }}>
+            <p>{pokemonsLength} Pokemons found</p>
+            <SelectSort onSelect={setSelectValue} />
+          </div>
         </div>
       )}
     </main>
