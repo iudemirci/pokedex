@@ -1,4 +1,4 @@
-import { pokemonColors } from "./pokemonColors";
+import { pokemonColors } from "../img/pokemonColors";
 import { PokemonType } from "./PokemonType";
 
 export function PokemonTypeBar({ onTypeSelect, selectedType = [] }) {

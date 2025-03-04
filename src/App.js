@@ -7,6 +7,7 @@ import { PokemonDetails } from "./components/PokemonDetails";
 import { PokemonTypeBar } from "./components/PokemonTypeBar";
 import { PokemonGenBar } from "./components/PokemonGenBar";
 import { SearchBox } from "./components/SearchBox";
+import { useKey } from "./hooks/useKey";
 
 export default function App() {
   const [pokemonData, setPokemonData] = useState([]);
@@ -51,60 +52,8 @@ export default function App() {
   if (selectValue !== "ID-Asc")
     pokemonsFinal = pokemonsFinal.slice().sort((a, b) => b.id - a.id);
 
-  // const pokemonSort = function (data) {
-  //   function getGenSorted(d) {
-  //     return d.filter((pokemon) => pokemon.generation === selectedGen);
-  //   }
-
-  //     function getTypeSorted(d) {
-  //       if (selectedType.length === 1) {
-  //         return d.filter((pokemon) =>
-  //           pokemon.types.find((type) => type.type.name === selectedType[0])
-  //         );
-  //       } else
-  //         return d
-  //           .filter((pokemon) =>
-  //             pokemon.types.find((type) => type.type.name === selectedType[0])
-  //           )
-  //           .filter((pokemon) =>
-  //             pokemon.types.find((type) => type.type.name === selectedType[1])
-  //           );
-  //     }
-
-  //     if (data.length === 0) {
-  //       return [];
-  //     } else if (selectedGen !== "" && selectedType.length !== 0) {
-  //       const sortedGen = getGenSorted(data);
-  //       return getTypeSorted(sortedGen);
-  //     } else if (selectedType.length !== 0) {
-  //       return getTypeSorted(data);
-  //     } else if (selectedGen !== "") {
-  //       return getGenSorted(data);
-  //     } else return data;
-  //   };
-  // }
-  // const [pokemonsFinal, setPokemonsFinal] = useState([]);
-
-  // useEffect(() => {
-  //   if (searchedPokemons.length === 0 && query !== "") {
-  //     setPokemonsFinal(pokemonSort([]));
-  //   } else if (searchedPokemons.length > 0) {
-  //     setPokemonsFinal(pokemonSort(searchedPokemons));
-  //   } else {
-  //     setPokemonsFinal(pokemonSort(pokemonData));
-  //   }
-  // }, [isLoading, selectedGen, selectedType, searchedPokemons]);
-
-  // const sortedPokemonData =
-  //   selectValue === "ID-Asc"
-  //     ? pokemonsFinal
-  //     : pokemonsFinal.slice().sort((a, b) => b.id - a.id);
-  // useEffect(() => {
-  //   handleStart();
-  // }, [selectedType, query, selectedGen]);
-  // useEffect(() => {
-  //   fetchPokemonData();
-  // }, []);
+  useKey("ArrowRight", handleNext);
+  useKey("ArrowLeft", handlePrevious);
 
   useEffect(() => {
     async function getData() {

@@ -1,6 +1,6 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import hidden from "../hidden.png";
+import hidden from "../img/hidden.png";
 import { PokemonType } from "./PokemonType";
 
 export function PokemonDetailBaseInfo({ pokemon, onTypeSelect }) {

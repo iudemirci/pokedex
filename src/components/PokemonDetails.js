@@ -1,3 +1,4 @@
+import { useKey } from "../hooks/useKey";
 import { Loader } from "./Loader";
 import { PokemonDetailAbilities } from "./PokemonDetailAbilities";
 import { PokemonDetailBaseInfo } from "./PokemonDetailBaseInfo";
@@ -33,6 +34,8 @@ export function PokemonDetails({ pokemon, onClick, onTypeSelect }) {
   useEffect(() => {
     fetchPokemonData();
   }, []);
+
+  useKey("Escape", onClick);
 
   if (isCardLoading) return <Loader />;
 

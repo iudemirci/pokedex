@@ -1,4 +1,4 @@
-import { pokemonColors } from "./pokemonColors";
+import { pokemonColors } from "../img/pokemonColors";
 
 export function PokemonType({
   type,

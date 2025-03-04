@@ -1,6 +1,6 @@
-import { pokemonColors } from "./pokemonColors";
-import logo from "../logo.png";
-import hidden from "../hidden.png";
+import { pokemonColors } from "../img/pokemonColors";
+import logo from "../img/logo.png";
+import hidden from "../img/hidden.png";
 import { PokemonType } from "./PokemonType";
 import { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -17,6 +17,8 @@ export function PokemonCard({ pokemon, onDetails }) {
     border: isHovered ? "3px solid #CBCBCBFF" : `3px solid ${typeColor}`,
   };
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
   return (
     <li
       className="main-list__card"
@@ -31,6 +33,8 @@ export function PokemonCard({ pokemon, onDetails }) {
         width={80}
         height={80}
         placeholderSrc={hidden}
+        wrapperClassName={isLoaded ? "" : "loading-pokemon"}
+        onLoad={() => setIsLoaded(true)}
       />
       <div className="flex flex-column" style={{ marginTop: ".6rem" }}>
         <span className="list-card__id">#{pokemon.id}</span>

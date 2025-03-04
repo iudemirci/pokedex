@@ -28,7 +28,8 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--color-main-text);
-  background: var(--color-main-container__darker) url(logo.png) no-repeat center;
+  background: var(--color-main-container__darker) url(../src/img/logo.png)
+    no-repeat center;
   background-blend-mode: luminosity;
 }
 
@@ -153,6 +154,10 @@ code {
 
 .button:hover {
   color: #000;
+}
+
+.button:focus {
+  outline: none;
 }
 
 .nav-bar {
@@ -309,6 +314,18 @@ h4 {
   border-radius: 4px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+.loading-pokemon {
+  width: 80px;
+  height: 80px;
+  opacity: 0.4;
+  animation: pulsate infinite 1.4s ease-in-out;
+}
+@keyframes pulsate {
+  50% {
+    opacity: 1;
+  }
 }
 
 /*
