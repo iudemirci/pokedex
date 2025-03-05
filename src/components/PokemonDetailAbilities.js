@@ -1,5 +1,5 @@
 import { Popover } from "react-tiny-popover";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export function PokemonDetailAbilities({
   pokemon,

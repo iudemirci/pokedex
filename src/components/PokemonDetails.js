@@ -9,31 +9,31 @@ export function PokemonDetails({ pokemon, onClick, onTypeSelect }) {
   const [isCardLoading, setisCardLoading] = useState(false);
   const [abilityInfo, setAbilityInfo] = useState([]);
 
-  async function fetchPokemonData() {
-    try {
-      setisCardLoading(true);
-      const abilityInfos = await Promise.all(
-        pokemon.abilities.map(async (ability) => {
-          const abilityData = await fetch(ability.ability.url).then((res) =>
-            res.json()
-          );
-          return {
-            name: abilityData.name,
-            ability_info: abilityData.flavor_text_entries
-              .filter((a) => a.language.name === "en")
-              .at(0).flavor_text,
-          };
-        })
-      );
-      setAbilityInfo(abilityInfos);
-    } finally {
-      setisCardLoading(false);
-    }
-  }
-
   useEffect(() => {
+    async function fetchPokemonData() {
+      try {
+        setisCardLoading(true);
+        const abilityInfos = await Promise.all(
+          pokemon.abilities.map(async (ability) => {
+            const abilityData = await fetch(ability.ability.url).then((res) =>
+              res.json()
+            );
+            return {
+              name: abilityData.name,
+              ability_info: abilityData.flavor_text_entries
+                .filter((a) => a.language.name === "en")
+                .at(0).flavor_text,
+            };
+          })
+        );
+        setAbilityInfo(abilityInfos);
+      } finally {
+        setisCardLoading(false);
+      }
+    }
+
     fetchPokemonData();
-  }, []);
+  }, [pokemon.abilities]);
 
   useKey("Escape", onClick);
 
