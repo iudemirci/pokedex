@@ -20,14 +20,13 @@ export default function App() {
   const [pokemonOffset, setPokemonOffset] = useState(16);
   const [selectValue, setSelectValue] = useState("ID-Asc");
   const [query, setQuery] = useState("");
-
   let pokemonsFinal = pokemonData;
   const [pokemonsLength, setPokemonsLength] = useState(pokemonsFinal.length);
 
   useEffect(() => {
     setPokemonsLength(pokemonsFinal.length);
   }, [selectedType, selectedGen, query, pokemonsFinal.length]);
-  console.log(pokemonsLength);
+
   if (selectedGen !== "")
     pokemonsFinal = pokemonsFinal.filter(
       (pokemon) => pokemon.generation === selectedGen
@@ -109,7 +108,7 @@ export default function App() {
   }
 
   function handlePrevious() {
-    if (pokemonOffset === 16) return;
+    if (pokemonOffset === pokemonPerPage) return;
     setPokemonOffset((o) => o - pokemonPerPage);
   }
 
@@ -119,9 +118,9 @@ export default function App() {
   }
 
   function handleCardClick(pokemon) {
-    console.log(pokemon);
     setIsClicked(true);
     setSelectedPokemon(pokemon);
+    document.title = pokemon.name.at(0).toUpperCase() + pokemon.name.slice(1);
   }
 
   function handleSelectType(type) {

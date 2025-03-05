@@ -37,6 +37,11 @@ export function PokemonDetails({ pokemon, onClick, onTypeSelect }) {
 
   useKey("Escape", onClick);
 
+  function handleClose() {
+    onClick(false);
+    document.title = "Pokedex";
+  }
+
   if (isCardLoading) return <Loader />;
 
   return (
@@ -48,7 +53,7 @@ export function PokemonDetails({ pokemon, onClick, onTypeSelect }) {
         setisCardLoading={setisCardLoading}
         abilityInfo={abilityInfo}
       />
-      <button className="close-button" onClick={() => onClick(false)}>
+      <button className="close-button" onClick={() => handleClose()}>
         &#10554;
       </button>
     </div>
