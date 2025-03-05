@@ -196,7 +196,7 @@ export default function App() {
             <Button onButton={handleEnd}>&rArr;</Button>
           </div>
           <div className="flex items-center" style={{ gap: "2rem" }}>
-            <p>{pokemonsLength} Pokemons found</p>
+            <p>{pokemonsLength ? pokemonsLength : "No"} pokemons found</p>
             <SelectSort onSelect={setSelectValue} />
           </div>
         </div>
