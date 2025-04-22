@@ -27,10 +27,8 @@ body {
   height: 100vh;
   align-items: center;
   justify-content: center;
+  background-color: #000;
   color: var(--color-main-text);
-  background: var(--color-main-container__darker) url(../src/img/logo.png)
-    no-repeat center;
-  background-blend-mode: luminosity;
 }
 
 code {
