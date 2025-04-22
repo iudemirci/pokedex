@@ -16,8 +16,8 @@ export default function App() {
   const [selectedPokemon, setSelectedPokemon] = useState([]);
   const [selectedType, setSelectedType] = useState([]);
   const [selectedGen, setSelectedGen] = useState("");
-  const pokemonPerPage = 16;
-  const [pokemonOffset, setPokemonOffset] = useState(16);
+  const pokemonPerPage = 12;
+  const [pokemonOffset, setPokemonOffset] = useState(12);
   const [selectValue, setSelectValue] = useState("ID-Asc");
   const [query, setQuery] = useState("");
   let pokemonsFinal = pokemonData;
@@ -114,7 +114,7 @@ export default function App() {
 
   function handleStart() {
     if (pokemonOffset === 0) return;
-    setPokemonOffset(16);
+    setPokemonOffset(12);
   }
 
   function handleCardClick(pokemon) {

@@ -63,7 +63,7 @@ code {
   background-color: var(--color-main-container);
   border: 20px inset var(--color-main-container-border);
   min-width: calc(15rem * 4);
-  min-height: 50.5rem;
+  min-height: 39.5rem;
   padding: 1.6rem;
   border-radius: 16px;
   display: flex;
@@ -76,7 +76,7 @@ code {
 .main-list {
   display: grid;
   grid-template-columns: minmax(14rem, min-content) repeat(3, 14rem);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   gap: 0.8rem;
   list-style: none;
   flex: 1;
